@@ -1,2 +1,4 @@
 # SpringBoardProject
- SpringBoardProject
+
+- 스프링을 이용한 게시판 프로젝트입니다.
+- 로그인을 위한 세션, 게시글 페이징이 적용되었습니다.
