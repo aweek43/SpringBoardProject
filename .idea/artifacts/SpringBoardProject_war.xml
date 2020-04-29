@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/SpringBoardProject_war</output-path>
     <root id="archive" name="SpringBoardProject_war.war">
       <element id="artifact" artifact-name="SpringBoardProject:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib" />
+      </element>
     </root>
   </artifact>
 </component>

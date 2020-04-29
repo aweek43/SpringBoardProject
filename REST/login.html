@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> 로그인 </title>
+</head>
+<body>
+    <div>
+        로그인을 할 수 있습니다.
+    </div>
+    <br>
+    아이디:
+    <input type="text" name="userId" id="userId" />
+    <br>
+    비밀번호:
+    <input type="password" name="password" id="password" />
+    <input type="button" onclick="login()" value="로그인" />
+
+<script type="application/javascript">
+    function login() {
+        const data = new URLSearchParams();
+        data.append("id", document.getElementById("userId").value);
+        data.append("password", document.getElementById("password").value);
+
+        let apiUrl = 'http://localhost:8080/requestLogin';
+        fetch(apiUrl, {
+            method: "POST",
+            body: data
+        })
+            .then( (res) => {
+                if (res.status === 200) {
+                    localStorage.setItem("Authorization", res.headers.get("Authorization"));
+                    window.location.href="postList.html";
+                }
+                else if (res.status === 404) {
+                    alert("없는 ID 또는 잘못된 비밀번호입니다.");
+                }
+                else {
+                    alert("처리되지 않은 에러입니다. " +  + res.status);
+                }
+            })
+    }
+
+</script>
+</body>
+</html>

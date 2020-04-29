@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost/springboard?allowPublicKeyRetrieval=true&amp;serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="kimhanju7" />
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <bean id="placeholderConfigurer" class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+    </bean>
+
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
+    </bean>
+
+    <bean id="sqlService" class="springBoardProject.sqlService.ContextSqlService">
+        <property name="sqlMap">
+            <map>
+                <entry key="userAdd" value="insert into users(id, password) values(?,?)" />
+                <entry key="userGet" value="select * from users where id = ? and password = ?" />
+                <entry key="userDeleteAll" value="delete from users" />
+                <entry key="userGetCount" value="select count(*) from users" />
+
+                <entry key="postAdd" value="insert into posts(author, title, content, generatedDate, revisedDate)
+                            values(?,?,?,?,?)" />
+                <entry key="postGet" value="select * from posts where id = ?" />
+                <entry key="postGetName" value="select * from posts where author = ?" />
+                <entry key="postGetAll" value="select * from posts order by generatedDate desc" />
+                <entry key="postDeleteAll" value="delete from posts" />
+                <entry key="postGetCount" value="select count(*) from posts" />
+                <entry key="postGetPage" value="select * from posts order by generatedDate desc limit ?, 5" />
+                <entry key="postUpdate" value="update posts set title = ?, content = ?, revisedDate = ? where id = ?" />
+            </map>
+        </property>
+    </bean>
+
+</beans>

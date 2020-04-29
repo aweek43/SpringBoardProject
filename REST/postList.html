@@ -1,0 +1,50 @@
+
+<html>
+<head>
+    <title> 게시글 목록 </title>
+</head>
+<body>
+    <div>
+        <span id="titleUserId"></span> 님 환영합니다.
+    </div>
+    <br>
+
+    <table border="1">
+        <th> 제목 </th>
+        <th> 작성자 </th>
+    </table>
+    <br>
+    <div id="test">123</div>
+
+<script type="application/javascript">
+    window.onload = function() {
+        document.getElementById("titleUserId").innerText = localStorage.getItem("Authorization");
+        let apiUrl = 'http://localhost:8080/postList?page=1';
+        fetch(apiUrl, {
+            method: "GET",
+        })
+            .then( (res) => {
+                if (res.status === 200) {
+                    console.log(res);
+                    document.getElementById("test").innerText = res.text();
+                }
+                else {
+                    console.log(res);
+                    alert("처리되지 않은 에러입니다. " +  + res.status);
+                }
+            })
+    }
+
+    function readPost(postId) {
+        document.getElementById('postId').value = postId;
+        document.getElementById('postForm').submit();
+    }
+
+    function postList(index) {
+        document.getElementById('page').value = index;
+        document.getElementById('postListForm').submit();
+    }
+</script>
+
+</body>
+</html>
